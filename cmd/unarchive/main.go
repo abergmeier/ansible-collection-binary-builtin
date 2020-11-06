@@ -5,8 +5,8 @@ import (
 	"io/ioutil"
 	"os"
 
-	"github.com/abergmeier/ansible-collection-binary-builtin/internal/git"
 	"github.com/abergmeier/ansible-collection-binary-builtin/internal/protocol"
+	"github.com/abergmeier/ansible-collection-binary-builtin/internal/unarchive"
 )
 
 func main() {
@@ -24,14 +24,14 @@ func main() {
 		os.Exit(2)
 	}
 
-	p := &git.Parameters{}
+	p := &unarchive.Parameters{}
 	err = json.Unmarshal(text, p)
 	if err != nil {
 		protocol.PrintfFailed("Configuration file not valid JSON %s: %s", argsFile, err)
 		os.Exit(4)
 	}
 
-	err = git.Run(p)
+	err = unarchive.Run(p)
 	if err != nil {
 		protocol.PrintFailed(err.Error())
 		os.Exit(8)

@@ -13,7 +13,22 @@ builds:
       - amd64
       - arm
       - arm64
+  - id: unarchive
+    main: ./cmd/unarchive
+    binary: plugins/modules/unarchive
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - darwin
+      - freebsd
+      - linux
+      - windows
+    goarch:
+      - amd64
+      - arm
+      - arm64
 archives:
   - builds:
       - git
+      - unarchive
 release:
