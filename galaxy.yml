@@ -1,0 +1,12 @@
+namespace: community
+name: binary.builtin
+version: 0.0.1
+readme: README.md
+authors:
+  - Andreas Bergmeier
+license_file: LICENSE
+tags:
+  - binary
+  - community
+repository: https://github.com/abergmeier/ansible-collection-binary-builtin
+issues: https://github.com/abergmeier/ansible-collection-binary-builtin/issues
