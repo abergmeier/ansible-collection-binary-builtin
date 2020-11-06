@@ -15,11 +15,11 @@ type response struct {
 	Failed  bool   `json:"failed"`
 }
 
-func main() int {
+func main() {
 
 	if len(os.Args) != 2 {
 		printFailed("No argument file provided")
-		return 1
+		os.Exit(1)
 	}
 
 	argsFile := os.Args[1]
@@ -27,24 +27,23 @@ func main() int {
 	text, err := ioutil.ReadFile(argsFile)
 	if err != nil {
 		printfFailed("Could not read configuration file %s: %s", argsFile, err)
-		return 2
+		os.Exit(2)
 	}
 
 	p := &git.Parameters{}
 	err = json.Unmarshal(text, p)
 	if err != nil {
 		printfFailed("Configuration file not valid JSON %s: %s", argsFile, err)
-		return 4
+		os.Exit(4)
 	}
 
 	err = git.Run(p)
 	if err != nil {
 		printFailed(err.Error())
-		return 1
+		os.Exit(8)
 	}
 
 	printfSuccess("Checked out successfully")
-	return 0
 }
 
 func printSuccess(msg string) {
