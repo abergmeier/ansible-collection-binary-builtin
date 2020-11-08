@@ -1,7 +1,7 @@
 builds:
-  - id: git
-    main: ./cmd/git
-    binary: plugins/modules/git
+  - id: assert
+    main: ./cmd/assert
+    binary: plugins/modules/assert
     env:
       - CGO_ENABLED=0
     goos:
@@ -29,6 +29,7 @@ builds:
       - arm64
 archives:
   - builds:
+      - assert
       - git
       - unarchive
 release:
