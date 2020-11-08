@@ -3,8 +3,8 @@ package main
 import (
 	"os"
 
+	"github.com/abergmeier/ansible-collection-binary-builtin/internal/assert"
 	"github.com/abergmeier/ansible-collection-binary-builtin/internal/protocol"
-	"github.com/abergmeier/ansible-collection-binary-builtin/internal/unarchive"
 )
 
 func main() {
@@ -15,18 +15,23 @@ func main() {
 	}
 
 	argsFile := os.Args[1]
-	p := &unarchive.Parameters{}
+	p := &assert.Parameters{}
 	err := protocol.ReadParametersFromFile(argsFile, p)
 	if err != nil {
 		protocol.PrintFailed(err.Error())
 		os.Exit(2)
 	}
 
-	err = unarchive.Run(p)
+	truth, err := assert.Run(p)
 	if err != nil {
 		protocol.PrintFailed(err.Error())
+		os.Exit(4)
+	}
+
+	if !truth {
+		protocol.PrintfSuccess(p.FailMsg)
 		os.Exit(8)
 	}
 
-	protocol.PrintfSuccess("Unarchive successful")
+	protocol.PrintfSuccess(p.SuccessMsg)
 }

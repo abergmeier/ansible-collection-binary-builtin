@@ -1,8 +1,6 @@
 package main
 
 import (
-	"encoding/json"
-	"io/ioutil"
 	"os"
 
 	"github.com/abergmeier/ansible-collection-binary-builtin/internal/git"
@@ -17,24 +15,17 @@ func main() {
 	}
 
 	argsFile := os.Args[1]
-
-	text, err := ioutil.ReadFile(argsFile)
-	if err != nil {
-		protocol.PrintfFailed("Could not read configuration file %s: %s", argsFile, err)
-		os.Exit(2)
-	}
-
 	p := &git.Parameters{}
-	err = json.Unmarshal(text, p)
+	err := protocol.ReadParametersFromFile(argsFile, p)
 	if err != nil {
-		protocol.PrintfFailed("Configuration file not valid JSON %s: %s", argsFile, err)
-		os.Exit(4)
+		protocol.PrintFailed(err.Error())
+		os.Exit(2)
 	}
 
 	err = git.Run(p)
 	if err != nil {
 		protocol.PrintFailed(err.Error())
-		os.Exit(8)
+		os.Exit(4)
 	}
 
 	protocol.PrintfSuccess("Checked out successfully")
