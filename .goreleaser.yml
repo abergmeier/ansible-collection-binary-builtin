@@ -13,6 +13,20 @@ builds:
       - amd64
       - arm
       - arm64
+  - id: git
+    main: ./cmd/git
+    binary: plugins/modules/git
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - darwin
+      - freebsd
+      - linux
+      - windows
+    goarch:
+      - amd64
+      - arm
+      - arm64
   - id: unarchive
     main: ./cmd/unarchive
     binary: plugins/modules/unarchive
