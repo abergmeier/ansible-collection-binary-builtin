@@ -46,4 +46,8 @@ archives:
       - assert
       - git
       - unarchive
+  - files:
+      - galaxy.yml
+      - LICENSE
+      - README.md
 release:
