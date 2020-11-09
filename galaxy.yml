@@ -1,9 +1,9 @@
 namespace: community
 name: binary.builtin
-version: 0.0.6
+version: "0.0.6"
 readme: README.md
 authors:
-  - Andreas Bergmeier
+  - "Andreas Bergmeier"
 license_file: LICENSE
 tags:
   - binary
